@@ -1,11 +1,22 @@
 micronaut:
+  application:
+    default-charset: UTF-8
+    name: czela.evidence.backend
+  http:
+    services:
+      flexibee:
+        url: https://flexibee-web.czela.net
+        path: /c/czela_test/
+  server:
+    cors:
+      enabled: true
   security:
     enabled: true
     endpoints:
       login:
-        enabled: true
+        enabled: false
       logout:
-        enabled: true
+        enabled: false
     token:
       jwt:
         enabled: true
@@ -16,6 +27,7 @@ micronaut:
             czela:
               keyType: EC
               url: https://www.czela.net/.well-known/jwks.json
-#          secret:
-#            generator:
-#              secret: pleaseChangeThisSecretForANewOne
+datasources:
+  netadmin:
+    url: jdbc:mysql://kazbunda.czela.net:3306/netadmin?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    driverClassName: com.mysql.cj.jdbc.Driver
