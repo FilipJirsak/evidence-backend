@@ -1,5 +1,6 @@
 package net.czela.backend.evidence.rest.web;
 
+import com.orientechnologies.orient.core.db.ODatabaseSession;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.security.annotation.Secured;
@@ -19,7 +20,7 @@ import java.util.List;
 public class PublicController {
 	private final FlexibeeFaktury faktury;
 
-	public PublicController(FlexibeeFaktury faktury) {
+	public PublicController(FlexibeeFaktury faktury, ODatabaseSession session) {
 		this.faktury = faktury;
 	}
 
