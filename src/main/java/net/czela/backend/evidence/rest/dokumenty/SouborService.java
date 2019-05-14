@@ -1,4 +1,4 @@
-package net.czela.backend.evidence.rest.soubor;
+package net.czela.backend.evidence.rest.dokumenty;
 
 import com.orientechnologies.orient.core.db.ODatabase;
 import com.orientechnologies.orient.core.db.ODatabaseSession;

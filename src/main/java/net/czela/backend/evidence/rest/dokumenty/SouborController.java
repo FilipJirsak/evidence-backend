@@ -1,4 +1,4 @@
-package net.czela.backend.evidence.rest.soubor;
+package net.czela.backend.evidence.rest.dokumenty;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
