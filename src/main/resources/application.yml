@@ -10,6 +10,7 @@ micronaut:
   server:
     cors:
       enabled: true
+    port: 8081
   security:
     enabled: true
     endpoints:
