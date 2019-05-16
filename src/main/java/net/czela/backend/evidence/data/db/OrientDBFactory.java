@@ -9,6 +9,7 @@ import com.orientechnologies.orient.core.metadata.schema.OType;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
+import io.micronaut.runtime.context.scope.ThreadLocal;
 import jodd.util.ClassLoaderUtil;
 import jodd.util.ThreadUtil;
 import org.dom4j.Document;
@@ -31,7 +32,7 @@ import java.util.List;
 public class OrientDBFactory {
 	private final List<OrientDB> servers = new LinkedList<>();
 
-	@Singleton
+	@ThreadLocal
 	@Bean(preDestroy = "close")
 	@EachBean(OrientDBConfiguration.class)
 	public ODatabaseSession orientDB(OrientDBConfiguration configuration) throws IOException, DocumentException {

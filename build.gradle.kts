@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "net.czela"
-version = "0.0.1"
+version = "0.1.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -25,11 +25,11 @@ repositories {
 
 dependencies {
     //region compile
-    compile("io.micronaut", "micronaut-http-server-netty", "1.1.0")
-    compile("io.micronaut", "micronaut-http-client", "1.1.0")
-    compile("io.micronaut", "micronaut-inject", "1.1.0")
-    compile("io.micronaut", "micronaut-security-jwt", "1.1.0")
-    compile("io.micronaut", "micronaut-runtime", "1.1.0")
+    compile("io.micronaut", "micronaut-http-server-netty", "1.1.1")
+    compile("io.micronaut", "micronaut-http-client", "1.1.1")
+    compile("io.micronaut", "micronaut-inject", "1.1.1")
+    compile("io.micronaut", "micronaut-security-jwt", "1.1.1")
+    compile("io.micronaut", "micronaut-runtime", "1.1.1")
     compile("io.micronaut.configuration", "micronaut-jdbc-hikari", "1.1.0")
 
     compile("org.jdbi", "jdbi3-core", "3.7.1")
@@ -42,11 +42,11 @@ dependencies {
     //endregion
 
     //region compileOnly
-    compileOnly("io.micronaut", "micronaut-inject-java", "1.1.0")
+    compileOnly("io.micronaut", "micronaut-inject-java", "1.1.1")
     //endregion
 
     //region annotationProcessor
-    annotationProcessor("io.micronaut", "micronaut-inject-java", "1.1.0")
+    annotationProcessor("io.micronaut", "micronaut-inject-java", "1.1.1")
     //endregion
 
     //region runtime
