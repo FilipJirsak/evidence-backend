@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 /**
  * @author Filip Jirsák
  */
-@Factory
+//@Factory
 public class MySQLFactory {
 	@Singleton
 	public Jdbi jdbi(@Named("netadmin") DataSource dataSource) {

@@ -29,6 +29,7 @@ public class SouborService {
 		this.uploadDir = uploadDir;
 	}
 
+	/*
 	public SouborUUID vytvoritSoubor(Soubor soubor) {
 		return orientdb.inSession(session -> {
 			final OVertex vertex = session.newVertex("VSoubor");
@@ -82,5 +83,5 @@ public class SouborService {
 						.map(MediaType::of);
 			}
 		});
-	}
+	}*/
 }

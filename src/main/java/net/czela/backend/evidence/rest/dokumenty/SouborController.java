@@ -27,6 +27,7 @@ public class SouborController {
 		this.souborService = souborService;
 	}
 
+	/*
 	@Post(value = "/novy")
 	public HttpResponse<SouborUUID> novy(Soubor soubor) throws IOException {
 		final SouborUUID uuid = souborService.vytvoritSoubor(soubor);
@@ -55,4 +56,5 @@ public class SouborController {
 		}
 		return new SystemFile(souborService.file(uuid));
 	}
+	*/
 }

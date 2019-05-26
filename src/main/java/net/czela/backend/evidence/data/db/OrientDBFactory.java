@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @author Filip Jirsák
  */
-@Factory
+//@Factory
 public class OrientDBFactory {
 	private final List<OrientDB> servers = new LinkedList<>();
 

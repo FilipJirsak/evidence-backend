@@ -9,7 +9,7 @@ import java.util.function.Function;
 /**
  * @author Filip
  */
-@Singleton
+//@Singleton
 public class OrientDBService {
 	private final ODatabaseSession session;
 
