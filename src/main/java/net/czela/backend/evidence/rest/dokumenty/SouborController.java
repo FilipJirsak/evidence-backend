@@ -1,5 +1,6 @@
 package net.czela.backend.evidence.rest.dokumenty;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
@@ -27,18 +28,18 @@ public class SouborController {
 		this.souborService = souborService;
 	}
 
-	/*
 	@Post(value = "/novy")
-	public HttpResponse<SouborUUID> novy(Soubor soubor) throws IOException {
-		final SouborUUID uuid = souborService.vytvoritSoubor(soubor);
-		return HttpResponse.ok(uuid);
+	public ObjectNode novy(ObjectNode json) throws IOException {
+		return souborService.vytvoritSoubor(json);
 	}
 
+/*
 	@Post(value = "/nova-faktura")
 	public HttpResponse<NovaFaktura> novaFaktura(Soubor soubor) throws IOException {
 		final NovaFaktura faktura = souborService.vytvoritFakturu(soubor);
 		return HttpResponse.ok(faktura);
 	}
+*/
 
 	@Put(value = "/upload/{uuid}", consumes = MediaType.ALL)
 	public HttpResponse<?> upload(String uuid, @Body byte[] data) throws IOException {
@@ -50,11 +51,10 @@ public class SouborController {
 
 	@Get(value = "/{uuid}")
 	public SystemFile download(String uuid) throws IOException {
-		final Optional<MediaType> mediaType = souborService.mediaType(uuid);
-		if (mediaType.isPresent()) {
-			return new SystemFile(souborService.file(uuid), mediaType.get());
+		final Optional<ObjectNode> result = souborService.mediaType(uuid);
+		if (result.isPresent()) {
+			return new SystemFile(souborService.file(uuid), MediaType.of(result.get().findValue("mediaType").asText()));
 		}
 		return new SystemFile(souborService.file(uuid));
 	}
-	*/
 }

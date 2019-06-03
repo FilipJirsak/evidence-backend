@@ -1,5 +1,6 @@
 package net.czela.backend.evidence.data.db;
 
+import com.orientechnologies.orient.core.db.ODatabasePool;
 import com.orientechnologies.orient.core.db.ODatabaseSession;
 import com.orientechnologies.orient.core.db.OrientDB;
 import com.orientechnologies.orient.core.db.OrientDBConfig;
@@ -28,22 +29,32 @@ import java.util.List;
 /**
  * @author Filip Jirsák
  */
-//@Factory
+@Factory
 public class OrientDBFactory {
-	private final List<OrientDB> servers = new LinkedList<>();
+  private final List<OrientDB> servers = new LinkedList<>();
 
-	@ThreadLocal
+/*
 	@Bean(preDestroy = "close")
 	@EachBean(OrientDBConfiguration.class)
-	public ODatabaseSession orientDB(OrientDBConfiguration configuration) throws IOException, DocumentException {
+	public OrientDB orientDB(OrientDBConfiguration configuration) throws IOException, DocumentException {
 		OrientDB orientDB = new OrientDB(configuration.getUrl(), OrientDBConfig.defaultConfig());
 		servers.add(orientDB);
-		return orientDB.open(configuration.getDatabase(), configuration.getUsername(), configuration.getPassword());
+		return orientDB;
 	}
+*/
 
-	@PreDestroy
-	public void close() {
-		servers.forEach(OrientDB::close);
-	}
+  @Bean(preDestroy = "close")
+  @EachBean(OrientDBConfiguration.class)
+  public ODatabasePool orientDBPool(OrientDBConfiguration configuration) throws IOException, DocumentException {
+    OrientDB orientDB = new OrientDB(configuration.getUrl(), OrientDBConfig.defaultConfig());
+    servers.add(orientDB);
+
+    return new ODatabasePool(orientDB, configuration.getDatabase(), configuration.getUsername(), configuration.getPassword());
+  }
+
+  @PreDestroy
+  public void close() {
+    servers.forEach(OrientDB::close);
+  }
 
 }

@@ -5,7 +5,7 @@ import io.micronaut.context.annotation.EachProperty;
 /**
  * @author Filip Jirsák
  */
-//@EachProperty("orientdb")
+@EachProperty("orientdb")
 public class OrientDBConfiguration {
 	private String url;
 	private String database;

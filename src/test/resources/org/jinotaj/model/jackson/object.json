@@ -1,0 +1,18 @@
+{
+  "null": null,
+  "boolean": true,
+  "string": "text",
+  "number": 123,
+  "decimalNumber": 56.23,
+  "array": [
+    1,
+    2,
+    "3"
+  ],
+  "embed": {
+    "key1": "value",
+    "key2": 2
+  },
+  "emptyArray": [],
+  "emptyObject": {}
+}

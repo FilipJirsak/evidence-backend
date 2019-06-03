@@ -1,6 +1,4 @@
-package net.czela.backend.evidence.rest.uzivatele;
-
-import org.apache.commons.lang.text.StrBuilder;
+package net.czela.backend.evidence.rest.uzivatel;
 
 /**
  * @author Filip

@@ -1,0 +1,10 @@
+POST {{base}}/soubor/novy HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "mediaType": "application/pdf",
+  "name": "test.pdf"
+}
+
+###
