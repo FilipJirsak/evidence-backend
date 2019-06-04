@@ -19,6 +19,7 @@ import java.util.Optional;
  * @author Filip
  */
 @Singleton
+@Deprecated
 public class OrientDBNativeService extends AbstractOrientDBService {
   public OrientDBNativeService(ODatabasePool pool, ObjectMapper objectMapper) {
     super(pool, objectMapper);

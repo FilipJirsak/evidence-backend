@@ -23,6 +23,7 @@ import java.util.Collections;
  * @author Filip Jirsák
  */
 @Singleton
+@Deprecated
 public class XmlPlainCodec implements MediaTypeCodec {
 	private final Collection<MediaType> mediaTypes = Collections.singleton(MediaType.APPLICATION_XML_TYPE);
 

@@ -14,6 +14,7 @@ import java.util.function.Function;
 /**
  * @author Filip
  */
+@Deprecated
 public abstract class AbstractOrientDBService {
   protected final ODatabasePool pool;
   protected final ObjectMapper objectMapper;

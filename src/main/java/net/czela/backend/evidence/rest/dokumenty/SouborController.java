@@ -1,5 +1,6 @@
 package net.czela.backend.evidence.rest.dokumenty;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -9,9 +10,7 @@ import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.util.Optional;
 
@@ -29,17 +28,9 @@ public class SouborController {
 	}
 
 	@Post(value = "/novy")
-	public ObjectNode novy(ObjectNode json) throws IOException {
+	public JsonNode novy(ObjectNode json) throws IOException {
 		return souborService.vytvoritSoubor(json);
 	}
-
-/*
-	@Post(value = "/nova-faktura")
-	public HttpResponse<NovaFaktura> novaFaktura(Soubor soubor) throws IOException {
-		final NovaFaktura faktura = souborService.vytvoritFakturu(soubor);
-		return HttpResponse.ok(faktura);
-	}
-*/
 
 	@Put(value = "/upload/{uuid}", consumes = MediaType.ALL)
 	public HttpResponse<?> upload(String uuid, @Body byte[] data) throws IOException {
@@ -51,10 +42,19 @@ public class SouborController {
 
 	@Get(value = "/{uuid}")
 	public SystemFile download(String uuid) throws IOException {
-		final Optional<ObjectNode> result = souborService.mediaType(uuid);
+		final Optional<JsonNode> result = souborService.mediaType(uuid);
 		if (result.isPresent()) {
 			return new SystemFile(souborService.file(uuid), MediaType.of(result.get().findValue("mediaType").asText()));
 		}
 		return new SystemFile(souborService.file(uuid));
 	}
+
+	/*
+	@Post(value = "/nova-faktura")
+	public HttpResponse<NovaFaktura> novaFaktura(Soubor soubor) throws IOException {
+		final NovaFaktura faktura = souborService.vytvoritFakturu(soubor);
+		return HttpResponse.ok(faktura);
+	}
+*/
+
 }

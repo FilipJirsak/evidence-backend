@@ -1,11 +1,13 @@
 package net.czela.backend.evidence.rest.dokumenty;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.orientechnologies.orient.core.db.ODatabaseSession;
+import com.orientechnologies.orient.core.record.OVertex;
 import io.micronaut.context.annotation.Value;
-import io.micronaut.security.authentication.Authentication;
-import net.czela.backend.evidence.data.db.OrientDBJsonService;
-import net.czela.backend.evidence.data.db.OrientDBNativeService;
-import net.czela.backend.evidence.rest.uzivatel.UzivateleService;
+import net.czela.backend.evidence.data.orientdb.OrientDB;
+import net.czela.backend.evidence.data.orientdb.OrientDBJsonService;
+import net.czela.backend.evidence.data.orientdb.OrientDBService;
 
 import javax.inject.Singleton;
 import java.io.File;
@@ -20,31 +22,23 @@ import java.util.Optional;
  */
 @Singleton
 public class SouborService {
-  private final OrientDBNativeService orientDbNative;
-  private final OrientDBJsonService orientDbJson;
-  private UzivateleService uzivatel;
+  private final OrientDBService orientdb;
+  private final OrientDBJsonService jsonService;
   private final Path uploadDir;
 
-  public SouborService(
-          OrientDBNativeService orientDbNative,
-          OrientDBJsonService orientDbJson,
-          UzivateleService uzivatel,
-          @Value("${evidence.upload-dir}") Path uploadDir) {
-    this.orientDbNative = orientDbNative;
-    this.orientDbJson = orientDbJson;
-    this.uzivatel = uzivatel;
+  public SouborService(@Value("${evidence.upload-dir}") Path uploadDir, OrientDBService orientdb, OrientDBJsonService jsonService) {
+    this.orientdb = orientdb;
     this.uploadDir = uploadDir;
+    this.jsonService = jsonService;
   }
 
-  public ObjectNode vytvoritSoubor(ObjectNode json, Authentication authentication) {
-  	//TODO
-    orientDbJson.inSession(session ->
-            orientDbNative.newVertex(session, "VSoubor", json)
-                    .addEdge(uzivatel.getCurrent(session, authentication).get(), "EVlastnik")
-                    .save()
-    );
-
-    return null;
+  @OrientDB
+  public JsonNode vytvoritSoubor(ObjectNode json) {
+    ODatabaseSession databaseSession = orientdb.getDatabaseSession();
+    OVertex soubor = orientdb.newVertex("VSoubor", json);
+    orientdb.connectToCurrentUser(soubor, "EVlastnik");
+    soubor.save();
+    return jsonService.model(soubor);
   }
 
 /*
@@ -81,7 +75,9 @@ public class SouborService {
     return uploadDir.resolve(uuid).toFile();
   }
 
-  public Optional<ObjectNode> mediaType(String uuid) {
-    return orientDbJson.querySingle("SELECT mediaType FROM VSoubor WHERE uuid = ?", uuid);
+  public Optional<JsonNode> mediaType(String uuid) {
+    return orientdb
+            .singleVertex("SELECT mediaType FROM VSoubor WHERE uuid = ?", uuid)
+            .map(jsonService::model);
   }
 }

@@ -8,6 +8,8 @@ import io.micronaut.http.filter.ClientFilterChain;
 import io.micronaut.http.filter.HttpClientFilter;
 import org.reactivestreams.Publisher;
 
+import java.util.Random;
+
 /**
  * @author Filip Jirsák
  */
@@ -19,6 +21,13 @@ public class FlexibeeAuthFilter implements HttpClientFilter {
 
 	public FlexibeeAuthFilter(FlexibeeConfiguration configuration) {
 		this.configuration = configuration;
+	}
+
+	private boolean test() {
+		Integer a = 1000;
+		Integer b = 1000;
+		float f = new Random().nextFloat();
+		return f == 101f;
 	}
 
 	@Override

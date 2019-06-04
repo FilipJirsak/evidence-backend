@@ -20,6 +20,7 @@ import java.util.Optional;
  * @author Filip
  */
 @Singleton
+@Deprecated
 public class OrientDBJsonService extends AbstractOrientDBService {
 
   public OrientDBJsonService(ODatabasePool pool, ObjectMapper objectMapper) {

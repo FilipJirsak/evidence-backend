@@ -14,17 +14,9 @@ import java.util.Optional;
  */
 @Singleton
 public class UzivateleService {
-  private final OrientDBNativeService orientDB;
-
-  public UzivateleService(OrientDBNativeService orientDB) {
-    this.orientDB = orientDB;
-  }
 
   public ArrayNode getAll() {
-    return orientDB.query("SELECT * FROM VUzivatel ORDER BY prijmeni, jmeno, id");
+    return null; //orientDB.query("SELECT * FROM VUzivatel ORDER BY prijmeni, jmeno, id");
   }
 
-  public Optional<OVertex> getCurrent(ODatabaseSession session, Authentication authentication) {
-    return orientDB.nativeQueryVertexSingle("SELECT * FROM VUzivatel WHERE login = ?", authentication.getName());
-  }
 }

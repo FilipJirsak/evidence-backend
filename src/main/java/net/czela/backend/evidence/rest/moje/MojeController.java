@@ -6,8 +6,6 @@ import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.authentication.Authentication;
 import io.micronaut.security.rules.SecurityRule;
 
-import java.security.Principal;
-
 /**
  * @author Filip Jirsák
  */
@@ -19,7 +17,6 @@ public class MojeController {
 	public String index(Authentication authentication) {
 		return authentication.getName();
 	}
-
 
 	@Secured("root")
 	@Get("/root")
