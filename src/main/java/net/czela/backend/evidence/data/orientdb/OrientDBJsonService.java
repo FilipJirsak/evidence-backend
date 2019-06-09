@@ -2,11 +2,15 @@ package net.czela.backend.evidence.data.orientdb;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.orientechnologies.orient.core.record.OElement;
+import com.orientechnologies.orient.core.sql.executor.OResult;
+import com.orientechnologies.orient.core.sql.executor.OResultSet;
 
 import javax.inject.Singleton;
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 /**
  * @author Filip Jirsák
@@ -27,6 +31,23 @@ public class OrientDBJsonService {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public ObjectNode toJson(OResult result) {
+    try {
+      String json = result.toJSON();
+      return (ObjectNode) objectMapper.readTree(json);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public ArrayNode toJson(OResultSet resultSet) {
+    ArrayNode arrayNode = objectMapper.createArrayNode();
+    resultSet.stream()
+            .map(this::toJson)
+            .forEach(arrayNode::add);
+    return arrayNode;
   }
 
   public <T extends OElement> T fromJson(T element, ObjectNode data) {

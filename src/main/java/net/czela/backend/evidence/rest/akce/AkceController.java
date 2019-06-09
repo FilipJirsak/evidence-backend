@@ -1,11 +1,10 @@
 package net.czela.backend.evidence.rest.akce;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-
-import java.util.List;
 
 /**
  * @author Filip
@@ -21,8 +20,8 @@ public class AkceController {
 	}
 
 	@Get
-	public List<Akce> seznam() {
-		return akceService.getAll();
+	public ArrayNode seznam() {
+		return akceService.seznam();
 	}
 
 }

@@ -19,7 +19,11 @@ public class OrientDBSourceImpl implements OrientDBSource {
 
   @Override
   public ODatabaseSession getDatabaseSession() {
-    return threadLocalSession.get();
+    ODatabaseSession databaseSession = threadLocalSession.get();
+    if (databaseSession == null) {
+      throw new RuntimeException("V aktuálním vlákně není aktivní OrientDB session. Pravděpodobně na servisní metodě chybí anotace @OrientDB.");
+    }
+    return databaseSession;
   }
 
   public boolean startSession() {

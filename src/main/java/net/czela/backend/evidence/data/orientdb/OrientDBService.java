@@ -2,16 +2,20 @@ package net.czela.backend.evidence.data.orientdb;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.orientechnologies.orient.core.db.ODatabaseSession;
+import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.record.OEdge;
+import com.orientechnologies.orient.core.record.OElement;
 import com.orientechnologies.orient.core.record.OVertex;
 import com.orientechnologies.orient.core.sql.executor.OResultSet;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.security.utils.SecurityService;
 
+import javax.crypto.spec.OAEPParameterSpec;
 import javax.inject.Singleton;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -33,7 +37,7 @@ public class OrientDBService {
     return source.getDatabaseSession();
   }
 
-  //region Vertex
+  //region New vertex
   public OVertex newVertex() {
     return getDatabaseSession().newVertex();
   }
@@ -59,7 +63,7 @@ public class OrientDBService {
   }
   //endregion
 
-  //region Edge
+  //region New edge
   public OEdge newEdge(OVertex from, OVertex to) {
     return getDatabaseSession().newEdge(from, to);
   }
@@ -82,6 +86,38 @@ public class OrientDBService {
 
   public OEdge newEdge(OClass type, OVertex from, OVertex to, ObjectNode json) {
     return jsonService.updateFromJson(newEdge(type, from, to), json);
+  }
+  //endregion
+
+  //region By @id
+  public Optional<OVertex> vertexById(String id) {
+    OElement element = getDatabaseSession().load(new ORecordId(id));
+    return element.asVertex();
+  }
+
+  public Optional<OVertex> vertexById(String id, String type) {
+    OElement element = getDatabaseSession().load(new ORecordId(id));
+    if (!equlasType(element, type)) {
+      return Optional.empty();
+    }
+    return element.asVertex();
+  }
+
+  public Optional<OEdge> edgeById(String id) {
+    OElement element = getDatabaseSession().load(new ORecordId(id));
+    return element.asEdge();
+  }
+
+  public Optional<OEdge> edgeById(String id, String type) {
+    OElement element = getDatabaseSession().load(new ORecordId(id));
+    if (!equlasType(element, type)) {
+      return Optional.empty();
+    }
+    return element.asEdge();
+  }
+
+  private static boolean equlasType(OElement element, String type) {
+    return element.getSchemaType().map(OClass::getName).filter(type::equals).isPresent();
   }
   //endregion
 
