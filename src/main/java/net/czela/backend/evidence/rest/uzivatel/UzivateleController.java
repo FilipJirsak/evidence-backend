@@ -6,6 +6,8 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 
+import java.util.Optional;
+
 /**
  * @author Filip
  */
@@ -25,7 +27,7 @@ public class UzivateleController {
 	}
 
 	@Get("/ja")
-	public ObjectNode aktualni() {
+	public Optional<ObjectNode> aktualni() {
 		return uzivateleService.current();
 	}
 

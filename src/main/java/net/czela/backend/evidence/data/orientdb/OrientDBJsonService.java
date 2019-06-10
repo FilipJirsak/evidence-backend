@@ -10,13 +10,15 @@ import com.orientechnologies.orient.core.sql.executor.OResultSet;
 
 import javax.inject.Singleton;
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Filip Jirsák
  */
 @Singleton
 public class OrientDBJsonService {
+  public static final Map<String, String> MAP_ID = Map.of("@rid", "_rid");
   private final ObjectMapper objectMapper;
 
   public OrientDBJsonService(ObjectMapper objectMapper) {
@@ -25,27 +27,37 @@ public class OrientDBJsonService {
 
   //region JSON
   public ObjectNode toJson(OElement element) {
-    try {
-      String json = element.toJSON();
-      return (ObjectNode) objectMapper.readTree(json);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    String json = element.toJSON();
+    return processJsonObject(json);
   }
 
   public ObjectNode toJson(OResult result) {
-    try {
-      String json = result.toJSON();
-      return (ObjectNode) objectMapper.readTree(json);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    String json = result.toJSON();
+    return processJsonObject(json);
   }
 
   public ArrayNode toJson(OResultSet resultSet) {
     ArrayNode arrayNode = objectMapper.createArrayNode();
     resultSet.stream()
             .map(this::toJson)
+            .forEach(arrayNode::add);
+    return arrayNode;
+  }
+
+  public ObjectNode toJson(OElement element, Map<String, String> propertyMapping) {
+    String json = element.toJSON();
+    return processJsonObject(json, propertyMapping);
+  }
+
+  public ObjectNode toJson(OResult result, Map<String, String> propertyMapping) {
+    String json = result.toJSON();
+    return processJsonObject(json, propertyMapping);
+  }
+
+  public ArrayNode toJson(OResultSet resultSet, Map<String, String> propertyMapping) {
+    ArrayNode arrayNode = objectMapper.createArrayNode();
+    resultSet.stream()
+            .map(result -> toJson(result, propertyMapping))
             .forEach(arrayNode::add);
     return arrayNode;
   }
@@ -66,6 +78,52 @@ public class OrientDBJsonService {
     fromJson(element, data);
     return element;
   }
+
+  private ObjectNode createJsonObject(String json) {
+    ObjectNode objectNode;
+    try {
+      objectNode = (ObjectNode) objectMapper.readTree(json);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return objectNode;
+  }
+
+  private ObjectNode processJsonObject(String json) {
+    ObjectNode objectNode = createJsonObject(json);
+    filterObjectNode(objectNode);
+    return objectNode;
+  }
+
+  private ObjectNode processJsonObject(String json, Map<String, String> propertyMapping) {
+    ObjectNode objectNode = createJsonObject(json);
+    filterObjectNode(objectNode, propertyMapping);
+    return objectNode;
+  }
+
+  private void filterObjectNode(ObjectNode objectNode) {
+    Iterator<String> names = objectNode.fieldNames();
+    while (names.hasNext()) {
+      String name = names.next();
+      if (name.startsWith("@") && !name.equals("@version")) {
+        names.remove();
+      }
+    }
+  }
+
+  private void filterObjectNode(ObjectNode objectNode, Map<String, String> propertyMapping) {
+    for (Map.Entry<String, String> entry : propertyMapping.entrySet()) {
+      String source = entry.getKey();
+      String target = entry.getValue();
+      if (target != null) {
+        JsonNode propertyValue = objectNode.get(source);
+        objectNode.set(target, propertyValue);
+      }
+      objectNode.remove(source);
+    }
+    filterObjectNode(objectNode);
+  }
+
   //endregion
 
   //region Model

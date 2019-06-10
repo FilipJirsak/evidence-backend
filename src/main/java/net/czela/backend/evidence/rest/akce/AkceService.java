@@ -25,7 +25,7 @@ public class AkceService {
   @OrientDB
   public ArrayNode seznam() {
     OResultSet resultSet = orientdb.query("SELECT * FROM Akce ORDER BY nazev");
-    return jsonService.toJson(resultSet);
+    return jsonService.toJson(resultSet, OrientDBJsonService.MAP_ID);
   }
 
 }

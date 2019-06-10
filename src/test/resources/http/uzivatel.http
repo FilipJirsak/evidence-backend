@@ -1,0 +1,13 @@
+# Informace o přihlášeném uživateli
+GET {{base}}/uzivatele/ja
+Accept: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# Seznam všech uživatelů
+GET {{base}}/uzivatele
+Accept: application/json
+Authorization: Bearer {{authToken}}
+
+###

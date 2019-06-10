@@ -153,11 +153,10 @@ public class OrientDBService {
 
   //region Current user
   @Secured(SecurityRule.IS_AUTHENTICATED)
-  public OVertex currentUserVertex() {
+  public Optional<OVertex> currentUserVertex() {
     return securityService
             .username()
-            .flatMap(username -> singleVertex("SELECT FROM VUzivatel WHERE login = ?", username))
-            .get();
+            .flatMap(username -> singleVertex("SELECT FROM Uzivatel WHERE login = ?", username));
   }
 
   public OEdge connectToCurrentUser(OVertex vertex) {
