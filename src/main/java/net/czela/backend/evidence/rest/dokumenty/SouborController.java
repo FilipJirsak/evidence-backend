@@ -28,7 +28,7 @@ public class SouborController {
 	}
 
 	@Post(value = "/novy")
-	public JsonNode novy(ObjectNode json) throws IOException {
+	public Object novy(ObjectNode json) throws IOException {
 		return souborService.vytvoritSoubor(json);
 	}
 
@@ -42,10 +42,10 @@ public class SouborController {
 
 	@Get(value = "/{uuid}")
 	public SystemFile download(String uuid) throws IOException {
-		final Optional<JsonNode> result = souborService.mediaType(uuid);
-		if (result.isPresent()) {
-			return new SystemFile(souborService.file(uuid), MediaType.of(result.get().findValue("mediaType").asText()));
-		}
+		final Optional<Object> result = souborService.mediaType(uuid);
+//		if (result.isPresent()) {
+//			return new SystemFile(souborService.file(uuid), MediaType.of(result.get().findValue("mediaType").asText()));
+//		}
 		return new SystemFile(souborService.file(uuid));
 	}
 

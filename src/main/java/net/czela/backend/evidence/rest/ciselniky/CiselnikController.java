@@ -19,7 +19,8 @@ public class CiselnikController {
 	}
 
 	@Get("/zpusob-uhrady")
-	public ArrayNode zpusobUhrady() {
-		return ciselnikService.zpusobUhrady();
+	public Object zpusobUhrady() {
+//		return ciselnikService.zpusobUhrady();
+		return null;
 	}
 }

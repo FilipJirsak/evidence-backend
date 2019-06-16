@@ -1,4 +1,4 @@
-package net.czela.backend.evidence.data.orientdb;
+package net.czela.backend.evidence.config.orientdb;
 
 import io.micronaut.context.annotation.EachProperty;
 

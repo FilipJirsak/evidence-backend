@@ -1,8 +1,9 @@
-package net.czela.backend.evidence.data.orientdb;
+package net.czela.backend.evidence.config.orientdb;
 
 import com.orientechnologies.orient.core.db.ODatabaseSession;
 import io.micronaut.aop.MethodInterceptor;
 import io.micronaut.aop.MethodInvocationContext;
+import net.czela.backend.evidence.data.orientdb.OrientDB;
 
 import javax.inject.Singleton;
 

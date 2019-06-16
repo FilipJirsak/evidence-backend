@@ -1,8 +1,8 @@
 package net.czela.backend.evidence.data.orientdb;
 
 import io.micronaut.aop.Around;
+import io.micronaut.context.annotation.AliasFor;
 import io.micronaut.context.annotation.Type;
-import net.czela.backend.evidence.config.orientdb.OrientDBInterceptor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,12 +11,16 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * @author Filip Jirsák
+ * @author Filip
  */
 @Retention(RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Around
-@Type(OrientDBInterceptor.class)
-public @interface OrientDB {
-  boolean readOnly() default false;
+@Target({ElementType.METHOD})
+public @interface OrientProperty {
+  @AliasFor(member = "name")
+  String value() default "";
+
+  @AliasFor(member = "value")
+  String name() default "";
+
+  boolean readonly() default false;
 }

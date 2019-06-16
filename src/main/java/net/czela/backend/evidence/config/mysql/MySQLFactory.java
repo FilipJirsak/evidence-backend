@@ -1,6 +1,5 @@
-package net.czela.backend.evidence.data.mysql;
+package net.czela.backend.evidence.config.mysql;
 
-import io.micronaut.context.annotation.Factory;
 import org.jdbi.v3.core.Jdbi;
 
 import javax.inject.Named;

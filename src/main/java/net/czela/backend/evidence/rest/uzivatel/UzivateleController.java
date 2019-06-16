@@ -22,12 +22,12 @@ public class UzivateleController {
 	}
 
 	@Get
-	public ArrayNode seznam() {
+	public Object seznam() {
 		return uzivateleService.getAll();
 	}
 
 	@Get("/ja")
-	public Optional<ObjectNode> aktualni() {
+	public Optional<Object> aktualni() {
 		return uzivateleService.current();
 	}
 

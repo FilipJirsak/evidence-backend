@@ -1,4 +1,4 @@
-package net.czela.backend.evidence.data.orientdb;
+package net.czela.backend.evidence.config.orientdb;
 
 import com.orientechnologies.orient.core.db.ODatabasePool;
 import com.orientechnologies.orient.core.db.OrientDB;

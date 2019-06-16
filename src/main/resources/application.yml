@@ -32,3 +32,6 @@ datasources:
 #  netadmin:
 #    url: jdbc:mysql://kazbunda.czela.net:3306/netadmin?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
 #    driverClassName: com.mysql.cj.jdbc.Driver
+jackson:
+  serialization:
+    writeDatesAsTimestamps: false

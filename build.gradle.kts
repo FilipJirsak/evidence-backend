@@ -51,7 +51,6 @@ dependencies {
 
     //region runtime
     runtime("mysql", "mysql-connector-java", "8.0.15")
-
 //    runtime("org.glassfish", "javax.json", "1.1.4")
 
     runtime("ch.qos.logback", "logback-classic", "1.2.3")

@@ -20,7 +20,7 @@ public class AkceController {
 	}
 
 	@Get
-	public ArrayNode seznam() {
+	public Object seznam() {
 		return akceService.seznam();
 	}
 
