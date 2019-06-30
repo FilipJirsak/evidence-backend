@@ -53,7 +53,8 @@ dependencies {
     //endregion
 
     //region runtime
-    runtime("mysql", "mysql-connector-java", "8.0.15")
+//    runtime("mysql", "mysql-connector-java", "8.0.15")
+    runtime("org.postgresql", "postgresql", "42.2.6")
     runtime("org.slf4j", "jul-to-slf4j", "1.7.26")
 //    runtime("org.glassfish", "javax.json", "1.1.4")
     runtime("ch.qos.logback", "logback-classic", "1.2.3")

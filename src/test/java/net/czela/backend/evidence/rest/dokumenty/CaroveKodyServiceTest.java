@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class CaroveKodyServiceTest {
 
-	private final CaroveKodyService service = new CaroveKodyService();
+/*	private final CaroveKodyService service = new CaroveKodyService();
 
 	@Test
 	void generuj() {
@@ -20,5 +20,5 @@ class CaroveKodyServiceTest {
 				() -> assertEquals("A00000028159", service.generuj('A', 281)),
 				() -> assertEquals("A00000038453", service.generuj('A', 384))
 		);
-	}
+	}*/
 }
