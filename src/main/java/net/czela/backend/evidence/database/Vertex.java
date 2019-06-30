@@ -1,4 +1,4 @@
-package net.czela.backend.evidence.data.orientdb;
+package net.czela.backend.evidence.database;
 
 import io.micronaut.context.annotation.AliasFor;
 import io.micronaut.core.annotation.Introspected;
@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({ElementType.TYPE})
-public @interface OrientVertex {
+public @interface Vertex {
   @AliasFor(member = "type")
   String value() default "";
 

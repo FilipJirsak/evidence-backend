@@ -1,7 +1,7 @@
 package net.czela.backend.evidence.rest.ciselniky;
 
-import net.czela.backend.evidence.config.orientdb.OrientDBService;
-import net.czela.backend.evidence.data.orientdb.OrientDB;
+import net.czela.backend.evidence.database.OrientDBService;
+import net.czela.backend.evidence.database.OrientDB;
 
 import javax.inject.Singleton;
 

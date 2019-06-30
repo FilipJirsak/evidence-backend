@@ -1,4 +1,4 @@
-package net.czela.backend.evidence.data.orientdb;
+package net.czela.backend.evidence.database;
 
 import io.micronaut.aop.Around;
 import io.micronaut.context.annotation.AliasFor;
@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({ElementType.METHOD})
-public @interface OrientProperty {
+public @interface OrientDBProperty {
   @AliasFor(member = "name")
   String value() default "";
 

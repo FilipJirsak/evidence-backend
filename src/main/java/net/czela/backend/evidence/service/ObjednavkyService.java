@@ -1,9 +1,9 @@
 package net.czela.backend.evidence.service;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import net.czela.backend.evidence.data.orientdb.OrientDB;
-import net.czela.backend.evidence.config.orientdb.OrientDBService;
-import net.czela.backend.evidence.data.objednavka.Objednavka;
+import net.czela.backend.evidence.database.OrientDB;
+import net.czela.backend.evidence.database.OrientDBService;
+import net.czela.backend.evidence.entity.Objednavka;
 
 import javax.inject.Singleton;
 import java.util.Optional;

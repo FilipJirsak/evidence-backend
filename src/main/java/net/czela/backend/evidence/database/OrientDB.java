@@ -1,4 +1,4 @@
-package net.czela.backend.evidence.data.orientdb;
+package net.czela.backend.evidence.database;
 
 import io.micronaut.aop.Around;
 import io.micronaut.context.annotation.Type;

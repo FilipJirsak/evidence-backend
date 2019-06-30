@@ -1,0 +1,13 @@
+orientdb:
+  default:
+    url: memory
+    username: 'admin'
+    password: 'admin'
+    database:
+      name: evidence
+      type: MEMORY
+      username: 'evidence.backend'
+      password: 'test'
+      scripts:
+        - '0001.sql'
+        - '0001-data.sql'

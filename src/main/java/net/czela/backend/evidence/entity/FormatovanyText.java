@@ -1,14 +1,14 @@
-package net.czela.backend.evidence.data.common;
+package net.czela.backend.evidence.entity;
 
 import io.micronaut.core.annotation.Introspected;
-import net.czela.backend.evidence.data.orientdb.OrientVertex;
+import net.czela.backend.evidence.database.Vertex;
 
 /**
  * @author Filip
  */
 @Introspected
-@OrientVertex
-public class FormatovanyText {
+@Vertex
+public class FormatovanyText extends AbstractEntity {
   private String text;
   private String format;
 

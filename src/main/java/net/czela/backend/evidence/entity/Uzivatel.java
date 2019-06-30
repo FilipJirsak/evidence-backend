@@ -1,13 +1,14 @@
-package net.czela.backend.evidence.data.uzivatel;
+package net.czela.backend.evidence.entity;
 
-import net.czela.backend.evidence.data.orientdb.AbstractBean;
-import net.czela.backend.evidence.data.orientdb.OrientVertex;
+import io.micronaut.core.annotation.Introspected;
+import net.czela.backend.evidence.database.Vertex;
 
 /**
  * @author Filip
  */
-@OrientVertex
-public class Uzivatel extends AbstractBean {
+@Introspected
+@Vertex
+public class Uzivatel extends AbstractEntity {
   private int id;
   private String login;
   private String jmeno;

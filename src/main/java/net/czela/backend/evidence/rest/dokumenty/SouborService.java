@@ -2,8 +2,8 @@ package net.czela.backend.evidence.rest.dokumenty;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.micronaut.context.annotation.Value;
-import net.czela.backend.evidence.config.orientdb.OrientDBService;
-import net.czela.backend.evidence.data.orientdb.OrientDB;
+import net.czela.backend.evidence.database.OrientDBService;
+import net.czela.backend.evidence.database.OrientDB;
 
 import javax.inject.Singleton;
 import java.io.File;

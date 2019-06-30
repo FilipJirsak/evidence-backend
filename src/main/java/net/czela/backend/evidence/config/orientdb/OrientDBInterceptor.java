@@ -3,9 +3,10 @@ package net.czela.backend.evidence.config.orientdb;
 import com.orientechnologies.orient.core.db.ODatabaseSession;
 import io.micronaut.aop.MethodInterceptor;
 import io.micronaut.aop.MethodInvocationContext;
-import net.czela.backend.evidence.data.orientdb.OrientDB;
+import net.czela.backend.evidence.database.OrientDB;
 
 import javax.inject.Singleton;
+import java.util.concurrent.Callable;
 
 /**
  * @author Filip Jirsák
@@ -35,6 +36,28 @@ public class OrientDBInterceptor implements MethodInterceptor<Object, Object> {
         databaseSession.rollback();
       }
       throw e;
+    } finally {
+      if (started) {
+        orientDBSource.endSession();
+      }
+    }
+  }
+
+  public void inSession(Runnable runnable) {
+    boolean started = orientDBSource.startSession();
+    try {
+      runnable.run();
+    } finally {
+      if (started) {
+        orientDBSource.endSession();
+      }
+    }
+  }
+
+  public <T> T withSession(Callable<T> callable) throws Exception {
+    boolean started = orientDBSource.startSession();
+    try {
+      return callable.call();
     } finally {
       if (started) {
         orientDBSource.endSession();

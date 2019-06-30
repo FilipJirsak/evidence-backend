@@ -5,7 +5,7 @@ import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-import net.czela.backend.evidence.data.objednavka.Objednavka;
+import net.czela.backend.evidence.entity.Objednavka;
 import net.czela.backend.evidence.service.ObjednavkyService;
 
 import java.util.Optional;

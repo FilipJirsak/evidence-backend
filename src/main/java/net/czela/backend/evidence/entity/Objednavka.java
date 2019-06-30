@@ -1,10 +1,7 @@
-package net.czela.backend.evidence.data.objednavka;
+package net.czela.backend.evidence.entity;
 
-import net.czela.backend.evidence.data.orientdb.AbstractBean;
-import net.czela.backend.evidence.data.orientdb.OrientVertex;
-import net.czela.backend.evidence.data.orientdb.OrientEmbedded;
-import net.czela.backend.evidence.data.common.FormatovanyText;
-import net.czela.backend.evidence.data.uzivatel.Uzivatel;
+import io.micronaut.core.annotation.Introspected;
+import net.czela.backend.evidence.database.Vertex;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,8 +9,9 @@ import java.time.LocalDate;
 /**
  * @author Filip
  */
-@OrientVertex
-public class Objednavka extends AbstractBean {
+@Introspected
+@Vertex
+public class Objednavka extends AbstractEntity {
   private String popis;
   private BigDecimal castka;
   private LocalDate datumObjednani;
@@ -106,7 +104,6 @@ public class Objednavka extends AbstractBean {
     this.variabilniSymbol = variabilniSymbol;
   }
 
-  @OrientEmbedded
   public FormatovanyText getPoznamka() {
     return poznamka;
   }
